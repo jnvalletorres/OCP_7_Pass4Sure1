@@ -1,6 +1,5 @@
 
 import java.io.IOException;
-import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
@@ -26,12 +25,10 @@ import java.util.logging.Logger;
 public class Test47 {
 
     public static void main(String[] args) {
-        //PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:*.txt");
-        String pattern = "*???_*?";
+        String pattern = "*???_*1?.{txt}";
         Finder finder = new Finder(pattern);
         Path path = Paths.get("./resources/").toAbsolutePath().normalize();
         try {
-            //System.out.println("path: " + path);
             Files.walkFileTree(path, finder);
             finder.showFiles();
         } catch (IOException ex) {
@@ -53,8 +50,11 @@ class Finder extends SimpleFileVisitor<Path> {
     }
 
     private void find(Path file) {
-        System.out.println("file: " + file);
-        if (file != null && matcher.matches(file)) {
+        //Path name = file.getFileName();
+        Path name = file.getFileName();
+        //System.out.println("name: " + name.getFileName());
+        if (name != null && matcher.matches(name)) {
+            
             files.add(file);
         }
     }
@@ -73,3 +73,11 @@ class Finder extends SimpleFileVisitor<Path> {
     }
 
 }
+
+// * >=0 caracter
+// + >=1 caracter
+// ? <=1 caracter
+// . cualquier caracter 
+// \\d digito del 1-9
+// \\w cualquier caracter
+// \\s cualquier espacio en blanco(\r\t\n\f) 
