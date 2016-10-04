@@ -54,7 +54,7 @@ class Finder extends SimpleFileVisitor<Path> {
         Path name = file.getFileName();
         //System.out.println("name: " + name.getFileName());
         if (name != null && matcher.matches(name)) {
-            
+
             files.add(file);
         }
     }
